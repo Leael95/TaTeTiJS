@@ -4,9 +4,27 @@ let tatetiArray = [
     ["","",""]
 ];
 
+let valueInputTateti = "x";
+
+let i = 0;
+
 function insertData(id,position1,position2) {
+
+    document.getElementById(id).value = valueInputTateti;
+
     let inputTaTeTi = document.getElementById(id).value;
+
     tatetiArray[position1][position2] = inputTaTeTi;
+
+    winCondition();
+
+    if(valueInputTateti == "x") {
+        valueInputTateti = "o";
+    } else if(valueInputTateti == "o") {
+        valueInputTateti = "x";
+    }
+
+    document.getElementById(id).setAttribute("disabled",true);
 }
 
 function winCondition() {
@@ -31,9 +49,40 @@ function winCondition() {
 
     if(winCondition1 || winCondition2 || winCondition3 || winCondition4 || winCondition5 || winCondition6 || winCondition7 || winCondition8) {
         alert("Gano el jugador X");
+        restartGame();
+        removeValueInputs();
     } else if(winCondition9 || winCondition10 || winCondition11 || winCondition12 || winCondition13 || winCondition14 || winCondition15 || winCondition16){
-        alert("Gano el jugador O")
-    } else {
-        alert("Test");
+        alert("Gano el jugador O");
+        restartGame();
+        removeValueInputs();
+    } else if (i > 7) {
+        alert("SON UNOS MALOS DE MIERDA")
+        restartGame();
+        removeValueInputs();
+    }  else if(i < 8) { 
+        i++;
+    }
+}
+
+function restartGame() {
+    resetBoardPositions("slot1",0,0);
+    resetBoardPositions("slot2",0,1);
+    resetBoardPositions("slot3",0,2);
+    resetBoardPositions("slot4",1,0);
+    resetBoardPositions("slot5",1,1);
+    resetBoardPositions("slot6",1,2);
+    resetBoardPositions("slot7",2,0);
+    resetBoardPositions("slot8",2,1);
+    resetBoardPositions("slot9",2,2);
+}
+
+function resetBoardPositions(id,position1,position2) {
+    document.getElementById(id).value = "";
+    tatetiArray[position1][position2] = "";
+}
+
+function removeValueInputs() {
+    for(let i = 1; i < 10; i++) {
+        document.getElementById(`slot${i}`).removeAttribute("disabled");
     }
 }
