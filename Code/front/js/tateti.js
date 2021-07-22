@@ -6,7 +6,7 @@ let tatetiArray = [
 
 let valueInputTateti = "x";
 
-let i = 0;
+let contador = 0;
 
 function insertData(id,position1,position2) {
 
@@ -16,8 +16,6 @@ function insertData(id,position1,position2) {
 
     tatetiArray[position1][position2] = inputTaTeTi;
 
-    winCondition();
-
     if(valueInputTateti == "x") {
         valueInputTateti = "o";
     } else if(valueInputTateti == "o") {
@@ -25,6 +23,8 @@ function insertData(id,position1,position2) {
     }
 
     document.getElementById(id).setAttribute("disabled",true);
+
+    winCondition();
 }
 
 function winCondition() {
@@ -50,17 +50,17 @@ function winCondition() {
     if(winCondition1 || winCondition2 || winCondition3 || winCondition4 || winCondition5 || winCondition6 || winCondition7 || winCondition8) {
         alert("Gano el jugador X");
         restartGame();
-        removeValueInputs();
+        contador = 0;
     } else if(winCondition9 || winCondition10 || winCondition11 || winCondition12 || winCondition13 || winCondition14 || winCondition15 || winCondition16){
         alert("Gano el jugador O");
         restartGame();
-        removeValueInputs();
-    } else if (i > 7) {
-        alert("SON UNOS MALOS DE MIERDA")
+        contador = 0;
+    } else if (contador > 7) {
+        alert("Empate")
         restartGame();
-        removeValueInputs();
-    }  else if(i < 8) { 
-        i++;
+        contador = 0;
+    }  else if(contador < 8) { 
+        contador++;
     }
 }
 
@@ -74,6 +74,8 @@ function restartGame() {
     resetBoardPositions("slot7",2,0);
     resetBoardPositions("slot8",2,1);
     resetBoardPositions("slot9",2,2);
+
+    removeValueInputs();
 }
 
 function resetBoardPositions(id,position1,position2) {
